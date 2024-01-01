@@ -1,0 +1,7 @@
+# Genreated files
+token.txt
+responses
+
+# Intellj
+.idea
+*.iml
