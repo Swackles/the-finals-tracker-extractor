@@ -16,7 +16,17 @@ python3 main.py
 ```
 
 3. After running it, it will promt you to select an interface. Select the interface that you're connected to the internet with. Wi-Fi if using Wi-Fi, Ethernet if using a cable.
-4. Open up The Finals and you should see a message like `Auth token captured` appear in the console. This means the JWT token was found and saved into `token.txt` file.
+4. Open up The Finals and the program should start capturing data.
+
+## Output
+
+### `Auth token captured`
+
+This message means that the program has detected an jwt token and it will be written to `token.txt`
+
+### `Stats file captured`
+
+This means that the program has captured all the data needed to fill the stats file. This file is saved in the project root as `stats.json`
 
 ## How does it work?
 
