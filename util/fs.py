@@ -42,13 +42,6 @@ def should_file_be_updated(filename, time_elapsed_in_minutes_between_write):
         return True
 
 
-def write_token_to_file(token):
-    filename = "token.txt"
-    if should_file_be_updated(filename, 60):
-        print("Auth token captured")
-        write_to_file(filename, token)
-
-
 def new_stats_file():
     return "{ \"version\": " + str(current_version) + " }"
 

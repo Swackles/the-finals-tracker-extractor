@@ -22,10 +22,6 @@ python3 main.py
 
 ## Output
 
-### `Auth token captured`
-
-This message means that the program has detected an jwt token and it will be written to `token.txt`
-
 ### `Stats file captured`
 
 This means that the program has captured all the data needed to fill the stats file. This file is saved in the project root as `stats.json`
@@ -34,7 +30,7 @@ This means that the program has captured all the data needed to fill the stats f
 
 Internally this project uses tshark or [Terminal-based Wireshark](https://www.wireshark.org/docs/wsug_html_chunked/AppToolstshark.html) to listen to the traffic on your network and then decrypts that traffic using `SSLKEYLOGFILE`.
 
-It then waits until it can hear traffic belonging to embark. When it detects that a request belonging to embark has been made, it reads the headers on the request. In the headers it's looking for a JWT token, if it finds the token, then that token gets written to the `token.txt` file.
+It then waits until it can hear traffic belonging to embark. When it detects that a request belonging to embark has been made, it reads the response and saves it into `stats.json` file.
 
 ## Setup SSLKEYLOG file
 

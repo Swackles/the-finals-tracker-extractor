@@ -1,23 +1,15 @@
 import json
 import re
-from util.fs import write_token_to_file, write_player_stats_to_file, whitelisted_request_keys
+from util.fs import write_player_stats_to_file, whitelisted_request_keys
 
-header_request_id = "x-embark-request-id"
 header_trace_id = "x-embark-trace-id"
 
 
 def analyse_packet(input):
     packet = json.loads(input)["_source"]["layers"]
 
-    if header_request_id in input:
-        handle_embark_request(packet)
-    elif header_trace_id in input:
+    if header_trace_id in input:
         handle_embark_response(packet)
-
-
-def handle_embark_request(layers):
-    if "http.authorization" in layers["http"]:
-        write_token_to_file(layers["http"]["http.authorization"].replace("Bearer ", ""))
 
 
 def is_whitelisted_response(key):
