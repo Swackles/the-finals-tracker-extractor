@@ -1,5 +1,7 @@
 # Finals Key Extractor
 
+> This project is not affiliated or approved by Embark. Any use of this software is at your own risk.
+
 ## Requisites
 
 1. Install Python 3.10
