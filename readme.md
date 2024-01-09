@@ -6,6 +6,7 @@
 
 1. Install Python 3.10
 2. Install Wireshark to `C:\Program Files\Wireshark` (should be the default install directory)
+   2. if you're installing in a different directory, you need to change the path in the `config.ini` file
 3. [Setup SSLKEYLOG file](#setup-sslkeylog-file)
 
 ## Setup
@@ -26,7 +27,23 @@ python3 main.py
 
 This means that the program has captured all the data needed to fill the stats file. This file is saved in the project root as `stats.json`
 
-## How does it work?
+## Config
+
+| Key              |  type  | Default                                  | Description                                                                    |
+|------------------|:------:|------------------------------------------|--------------------------------------------------------------------------------|
+| tshark.path      | String | C:\\Program Files\\Wireshark\\tshark.exe | Path to the tshark file, change this if you have a different installation path |
+| tshark.interface | Number | Null                                     | Interface tshark will listen on                                                |
+
+### Debug
+
+This is debug config, mainly used for development
+
+| Key            |  type   | Default | Description                                                              |
+|----------------|:-------:|---------|--------------------------------------------------------------------------|
+| debug.save_raw | Boolean | False   | Set this to true if you want to save raw responses to `responses` folder |
+| debug.log      | Boolean | False   | Set this to true if you want to enable debug logging                     |
+|                |         |         |                                                                          |
+
 
 Internally this project uses tshark or [Terminal-based Wireshark](https://www.wireshark.org/docs/wsug_html_chunked/AppToolstshark.html) to listen to the traffic on your network and then decrypts that traffic using `SSLKEYLOGFILE`.
 

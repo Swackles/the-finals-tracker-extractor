@@ -1,19 +1,28 @@
 import subprocess
 import os
+from util.config import get_tshark_config, save_tshark_config
 
-tshark_path = "C:\Program Files\Wireshark\\tshark.exe"
+config = get_tshark_config()
 
 def get_interface():
-    process = subprocess.Popen([tshark_path, "-D"], shell=True)
-    process.communicate()
+    print(config["path"])
+    interface = config["interface"]
+    if interface == "":
+        process = subprocess.Popen([config["path"], "-D"], shell=True)
+        process.communicate()
 
-    interface = input("\n\nSelect interface number: ")
+        interface = input("\n\nSelect interface number: ")
+        save = input("Would you like to use this interface next time? (y/n): ")
+        if (save == "y"):
+            config["interface"] = interface
+            save_tshark_config(config)
+
     return interface
 
 
 def listen_to_traffic(interface):
     call = [
-        tshark_path,
+        config["path"],
         "-i", interface,
         "-o", "ssl.keylog_file:" + os.getenv('SSLKEYLOGFILE'),
         "-T", "json",

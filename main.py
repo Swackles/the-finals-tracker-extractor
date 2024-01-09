@@ -1,7 +1,6 @@
 from util.analyse_packet import analyse_packet
 from util.tshark import *
 
-
 def main():
     tshark_proc = listen_to_traffic(get_interface())
     raw_data = ""

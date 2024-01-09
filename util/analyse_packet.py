@@ -1,28 +1,30 @@
 import json
 import re
-from util.fs import write_player_stats_to_file, whitelisted_request_keys
+from util.fs import write_player_stats_to_file
+from util.config import get_whitelisted_request_keys, get_analyser_config, print_debug
 
-header_trace_id = "x-embark-trace-id"
-
+config = get_analyser_config()
 
 def analyse_packet(input):
     packet = json.loads(input)["_source"]["layers"]
 
-    if header_trace_id in input:
+    if config["header_trace_id"] in input:
         handle_embark_response(packet)
 
 
 def is_whitelisted_response(key):
-    return key in whitelisted_request_keys
+    return key in get_whitelisted_request_keys()
 
 
 def handle_embark_response(layers):
+    traceid = get_http_header(layers["http"], config["header_trace_id"])
     key = get_request_key(layers["http"]["http.response_for.uri"])
+    print_debug("Response", traceid, key)
 
     if is_whitelisted_response(key):
-        traceid = get_http_header(layers["http"], header_trace_id)
+        print_debug("Whitelisted")
 
-        print("RESPONSE: ", traceid, get_path(layers["http"]["http.response_for.uri"]))
+        print("RESPONSE:", get_path(layers["http"]["http.response_for.uri"]))
         if layers["http"]["http.content_type"] == "application/json":
             write_player_stats_to_file(
                 key,
